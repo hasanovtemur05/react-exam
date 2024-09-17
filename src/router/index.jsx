@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import App from "../App"; 
-import { ModelS, Header, Model3, ModelX, SolarPanels, SolarRoof, ModelY, Footer } from "@pages"
+import { ModelS, Header, Model3, ModelX, SolarPanels, SolarRoof, ModelY, Footer  } from "@pages"
 
 
 const router = createBrowserRouter(
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
       <Route path="solar-panels" element={<SolarPanels />} />
       <Route path="solar-roof" element={<SolarRoof />} />
       <Route path="footer" element={<Footer />} /> 
-     
+  
     </Route>
   )
 );

@@ -1,23 +1,50 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.scss";
 import logo from "../../assets/images/tesla-logo.svg";
 import ToggleButton from "@mui/material/ToggleButton";
 import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import SearchIcon from '@mui/icons-material/Search';
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import SearchIcon from "@mui/icons-material/Search";
 
-const Header = () => {
+const Header = ({ activeLink, setActiveLink }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const handleToggleClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleClick = (link) => {
-    setIsMenuOpen(false);
     setActiveLink(link);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    // Define the valid links and their corresponding paths
+    const validLinks = {
+      "model-s": '/',
+      "model-3": '/model-3',
+      "model-x": '/model-x',
+      "model-y": '/model-y'
+    };
+
+    // Convert searchQuery to lowercase to make the search case-insensitive
+    const query = searchQuery.toLowerCase();
+    
+    // Check if the searchQuery matches any valid link
+    const link = validLinks[query];
+    if (link) {
+      navigate(link);
+      setActiveLink(link);
+    }
+    // No else statement here, so no error message or notification if the link is not found
   };
 
   return (
@@ -48,32 +75,24 @@ const Header = () => {
                 Model-Y
               </Link>
             </li>
-            <li className={`header__item ${activeLink === '/solar-roof' ? 'active' : ''}`}>
-              <Link className="header__link" to="/solar-roof" onClick={() => handleClick('/solar-roof')}>
-                Solar-Roof
-              </Link>
-            </li>
-            <li className={`header__item ${activeLink === '/solar-panels' ? 'active' : ''}`}>
-              <Link className="header__link" to="/solar-panels" onClick={() => handleClick('/solar-panels')}>
-                Solar-Panels
-              </Link>
-            </li>
           </ul>
         </div>
         <div className="header__right">
           <div className="header__search">
-            <SearchIcon />
-            <input type="text" placeholder="search" />
+            <form onSubmit={handleSearchSubmit}>
+              <SearchIcon />
+              <input 
+                type="text" 
+                placeholder="search" 
+                value={searchQuery} 
+                onChange={handleSearchChange}
+              />
+            </form>
           </div>
           <button className="header__user">
             <PersonOutlineIcon />
           </button>
-          <ToggleButton
-            value="justify"
-            key="justify"
-            className="toogle-icon"
-            onClick={handleToggleClick}
-          >
+          <ToggleButton value="justify" key="justify" className="toogle-icon" onClick={handleToggleClick}>
             <FormatAlignJustifyIcon />
           </ToggleButton>
         </div>
