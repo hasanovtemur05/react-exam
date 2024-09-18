@@ -27,24 +27,22 @@ const Header = ({ activeLink, setActiveLink }) => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
 
-    // Define the valid links and their corresponding paths
     const validLinks = {
-      "model-s": '/',
-      "model-3": '/model-3',
-      "model-x": '/model-x',
-      "model-y": '/model-y'
+      "model-s": "/",
+      "model-3": "/model-3",
+      "model-x": "/model-x",
+      "model-y": "/model-y",
+      "solar-roof": "/solar-roof",
+      "solar-panels": "/solar-panels",
     };
 
-    // Convert searchQuery to lowercase to make the search case-insensitive
     const query = searchQuery.toLowerCase();
-    
-    // Check if the searchQuery matches any valid link
+
     const link = validLinks[query];
     if (link) {
       navigate(link);
       setActiveLink(link);
     }
-    // No else statement here, so no error message or notification if the link is not found
   };
 
   return (
@@ -54,25 +52,83 @@ const Header = ({ activeLink, setActiveLink }) => {
           <img src={logo} alt="logo" className="logo" />
         </div>
         <div className="header__lists">
-          <ul className={`header__list ${isMenuOpen ? 'header__list-show' : ''}`}>
-            <li className={`header__item ${activeLink === '/' ? 'active' : ''}`}>
-              <Link className="header__link" to="/" onClick={() => handleClick('/')}>
+          <ul
+            className={`header__list ${isMenuOpen ? "header__list-show" : ""}`}
+          >
+            <li
+              className={`header__item ${activeLink === "/" ? "active" : ""}`}
+            >
+              <Link
+                className="header__link"
+                to="/"
+                onClick={() => handleClick("/")}
+              >
                 Model-S
               </Link>
             </li>
-            <li className={`header__item ${activeLink === '/model-3' ? 'active' : ''}`}>
-              <Link className="header__link" to="/model-3" onClick={() => handleClick('/model-3')}>
+            <li
+              className={`header__item ${
+                activeLink === "/model-3" ? "active" : ""
+              }`}
+            >
+              <Link
+                className="header__link"
+                to="/model-3"
+                onClick={() => handleClick("/model-3")}
+              >
                 Model-3
               </Link>
             </li>
-            <li className={`header__item ${activeLink === '/model-x' ? 'active' : ''}`}>
-              <Link className="header__link" to="/model-x" onClick={() => handleClick('/model-x')}>
+            <li
+              className={`header__item ${
+                activeLink === "/model-x" ? "active" : ""
+              }`}
+            >
+              <Link
+                className="header__link"
+                to="/model-x"
+                onClick={() => handleClick("/model-x")}
+              >
                 Model-X
               </Link>
             </li>
-            <li className={`header__item ${activeLink === '/model-y' ? 'active' : ''}`}>
-              <Link className="header__link" to="/model-y" onClick={() => handleClick('/model-y')}>
+            <li
+              className={`header__item ${
+                activeLink === "/model-y" ? "active" : ""
+              }`}
+            >
+              <Link
+                className="header__link"
+                to="/model-y"
+                onClick={() => handleClick("/model-y")}
+              >
                 Model-Y
+              </Link>
+            </li>
+            <li
+              className={`header__item ${
+                activeLink === "/solar-roof" ? "active" : ""
+              }`}
+            >
+              <Link
+                className="header__link"
+                to="/solar-roof"
+                onClick={() => handleClick("/solar-roof")}
+              >
+                Solar-Roof
+              </Link>
+            </li>
+            <li
+              className={`header__item ${
+                activeLink === "/solar-panels" ? "active" : ""
+              }`}
+            >
+              <Link
+                className="header__link"
+                to="/solar-panels"
+                onClick={() => handleClick("/solar-panels")}
+              >
+                Solar-Panels
               </Link>
             </li>
           </ul>
@@ -81,10 +137,10 @@ const Header = ({ activeLink, setActiveLink }) => {
           <div className="header__search">
             <form onSubmit={handleSearchSubmit}>
               <SearchIcon />
-              <input 
-                type="text" 
-                placeholder="search" 
-                value={searchQuery} 
+              <input
+                type="text"
+                placeholder="search"
+                value={searchQuery}
                 onChange={handleSearchChange}
               />
             </form>
@@ -92,7 +148,12 @@ const Header = ({ activeLink, setActiveLink }) => {
           <button className="header__user">
             <PersonOutlineIcon />
           </button>
-          <ToggleButton value="justify" key="justify" className="toogle-icon" onClick={handleToggleClick}>
+          <ToggleButton
+            value="justify"
+            key="justify"
+            className="toogle-icon"
+            onClick={handleToggleClick}
+          >
             <FormatAlignJustifyIcon />
           </ToggleButton>
         </div>
